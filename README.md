@@ -84,6 +84,21 @@ can be fitted. Some targets are hard to reproduce on a different domain or at
 different density. This implementation initializes all cell pairs in blocks
 and is intended for small to moderate samples.
 
+Set `progress=True` in either generation function to see attempted proposals,
+current energy, and best energy as annealing runs. On completion, the function
+prints elapsed time, initial and final energy, proposal acceptance, and the
+stop reason. Use `verbose=True` for the completion summary alone, or
+`verbose=False` to suppress it.
+
+`cells.attrs["annealing"]` stores diagnostics regardless of display settings.
+`energy_history` samples `(proposals_attempted, current_energy, best_energy)`
+at the start, during annealing, and at the end. `final_energy` describes the
+best placement returned, and `last_energy` describes the last annealing state.
+`total_seconds` includes input summarization when generating from spatial data.
+`annealing_seconds` covers placement setup and the proposal search. Acceptance
+is measured over evaluated proposals. For example, out-of-bounds proposals
+count toward the step budget but are skipped before evaluation.
+
 ## Measure a tissue directly
 
 `cell_composition()` returns counts, relative abundances, and area densities by
